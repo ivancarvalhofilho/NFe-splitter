@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NFe-splitter</title>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="togglebutton.css">
+	<link rel="stylesheet" type="text/css" href="checkbox.css">
+</head>
+<style>
+	body {
+		background: #352C38;
+		font-family: 'Roboto', sans-serif;
+		color: #EBEBEA;
+		display: flex;
+		align-items: center;
+		flex-flow: column;
+	    width: 80vw;
+	    margin: auto;
+	    font-size: 22px;
+	}
+
+	body *{font-family: 'Roboto', sans-serif;}
+
+	body > * {
+		margin: 10px auto ;
+	}
+
+	*:focus {
+	    outline: none;
+	}
+
+	input {
+		border: 1px solid black;
+	    border-radius: 3em;
+	    min-height: 30px;
+	    width: 300px;
+        padding: 5px 100px 5px 25px;
+	}
+
+
+	Advertising {
+		background: #EBEBEA;
+		width: 300px;
+		height: 40px;
+		color: black;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.advertising {
+		margin: 10px auto;
+	}
+
+	.instructions {
+		min-height: 10px;
+	    width: 100%;
+	    max-width: 700px;	
+    	margin: 22px auto;
+	}
+
+	.instructions-inner {
+		height: 0px;
+		width: 80%;
+		margin: auto;
+		border: 1px solid #EBEBEA;
+		border-radius: 4px;
+		position: relative;
+	}
+
+	.instructions-inner > span {
+		padding: 10px;
+		background: #352C38;
+		position: absolute;
+		left: 30px;
+		top: -24px;
+    	font-size: 24px;
+	}
+
+	.input-type {
+	    display: flex;
+	    width: 30vw;
+    	max-width: 300px;
+	    justify-content: space-evenly;
+	    align-items: center;
+	    margin: 10px auto;
+	}
+
+	.go-input {
+		position: absolute;
+		right: 5px;
+		top: 5px;
+		border-radius: 3em;
+		border: 1px solid transparent;
+		background: #4E434E;
+		color: #EBEBEA;
+		padding: 3px 10px;
+		font-size: 20px;
+		cursor: pointer;
+	}
+
+	.my-input {
+	    width: 30vw;
+	    display: flex;
+	    justify-content: center;
+	}
+
+	.my-input > form {
+		position: relative;
+	}
+	
+	.spliters {
+		width: 200px;
+		padding-left: 30px !important;
+	}
+	
+	.checkbox-column {
+		display: flex;
+		padding-left: 30px;
+	}
+
+	.qtd-column {
+		text-align: end;
+	}
+
+	#my-table th {
+		padding: 0 10px;
+	}
+
+	#my-table table{
+		border-collapse: collapse;
+	}
+
+	#my-table thead tr:first-child th {
+		border-collapse: collapse;
+		border-bottom: 1px solid white !important;
+	}
+
+	#my-table {
+		transition: 1s;
+	}
+	
+</style>
+
+<script type="text/javascript">
+
+	class LineTableNFe {
+	    constructor() {
+	        this.outputHtml = ''
+            this.lineNumber = 0
+            this.trOpenned = 0
+            this.tdOpenned = 0
+	    }
+
+	    tr () {
+	    	this.outputHtml += !this.trOpenned ? (++this.lineNumber) && (++this.trOpenned) && '<tr>' : (this.trOpenned--) && '</tr>'
+	    	return this
+	    }
+
+	    td (text, className) {
+	    	this.outputHtml += !text ? this.tdMultiLine(className) : `<td class="${className || ''}">${text}</td>`
+	    	return this
+	    }
+
+	    tdMultiLine (className) {
+	    	return !this.tdOpenned ? (++this.tdOpenned) && `<td class="${className || ''}">` : (this.tdOpenned--) && '</td>'
+	    }
+
+	    renderCheck(color) {
+	    	this.outputHtml += 
+	            `<div class="checkbox ${color}">
+	                <input type="checkbox" name="check-${color}-${this.lineNumber}" id="check-${color}-${this.lineNumber}" />
+	                <label for="check-${color}-${this.lineNumber}"></label>
+	            </div>`
+        	return this
+	    }
+	}
+
+	const dividersEnum = ['blue', 'red', 'orange', 'green', 'purple']
+	let dividers = [{nome: 'ivan'}, {nome: 'nico'} ]
+	let tableJson = null;
+
+	function renderTable() {
+		var tableLines = new LineTableNFe();
+		tableJson.each(index => {
+			tableLines
+				.tr()
+				.td(tableJson[index].nome)
+				.td(tableJson[index].qtd, 'qtd-column')
+				.td(tableJson[index].unidade)
+				.td(tableJson[index].valor)
+				.td(null, 'checkbox-column')
+
+			dividers.forEach((divider, index) => 
+				tableLines.renderCheck(dividersEnum[index])
+			)
+			
+			tableLines.td().tr()
+		})
+	
+		$("#my-table tbody").html(tableLines.outputHtml)
+		$("#my-table").show()
+		$("#my-table").css('filter', 'opacity(1)')
+	}
+
+	$(document).ready(function(){
+
+		$("#formGetNFe").submit( function () {
+
+			let url = $("#NFeURL").val();
+
+			if(!url.includes("nfce.fazenda.mg.gov.br/portalnfce/sistema")){
+				return;
+			}
+
+			url = url.replace('https', 'http');
+
+			url = 'https://misty-dream-bebe.ivanzinhocarvalho.workers.dev/?' + encodeURIComponent(url);
+
+			fetch(url)
+				.then(function(res){ return res.text(); })
+				.then(function(data){ 	
+					var json = $(data).find("#myTable tr")
+					tableJson = json.map(i => ({
+						nome : $($(json[i]).find("td")[0]).text().split('\n')[0].replace(" .",""),
+						qtd : $($(json[i]).find("td")[1]).text().split(":")[1].trim(),
+						unidade : $($(json[i]).find("td")[2]).text().split(":")[1].trim(),
+						valor : $($(json[i]).find("td")[3]).text().split(":")[1].trim()
+					}))
+
+					renderTable()
+				})
+
+		});
+
+	});
+
+</script>
+
+<body>
+	<div class="advertising">
+		<Advertising>Advertising</Advertising>
+	</div>
+	
+	<div class="instructions">
+		<div class="instructions-inner">
+			<span> Instruções v </span>
+		</div>
+	</div>
+
+	<div class="input-type">
+		<span>
+			URL
+		</span>
+
+		<label class="switch">
+			<input type="checkbox">
+			<span class="slider round"></span>
+		</label>
+
+		<span>
+			QRCode
+		</span>
+	</div>
+
+	
+	<div class="my-input">
+		<form id="formGetNFe" action="javascript:void(0);">
+			<input type="text" name="NFe-URL" id="NFeURL">
+			<button type="submit" class="go-input"> Buscar </span>	
+		</form>
+		
+	</div>
+
+	<div id="my-table" style="display: none; filter: opacity(0);">
+		<table>
+			<thead>
+				<tr>
+					<th>Produto</th>
+					<th>Qtd</th>
+					<th>UN</th>
+					<th>Valor</th>
+					<th class="spliters">Dividindo</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td>FRANGO</td>
+					<td class="qtd-column">1</td>
+					<td>UN</td>
+					<td>R$11,00</td>
+					<td class="checkbox-column">
+					  <div class="checkbox">
+					    <input type="checkbox" id="cb" name="cb" />
+					    <label for="cb"></label>
+					  </div>
+					
+					  <div class="checkbox red">
+					    <input type="checkbox" id="cb2" name="cb2" />
+					    <label for="cb2"></label>
+					  </div>
+					
+					  <div class="checkbox orange">
+					    <input type="checkbox" id="cb3" name="cb3" />
+					    <label for="cb3"></label>
+					  </div>
+
+					  <div class="checkbox purple">
+					    <input type="checkbox" id="cb4" name="cb4" />
+					    <label for="cb4"></label>
+					  </div>
+
+					  <div class="checkbox green">
+					    <input type="checkbox" id="cb5" name="cb5" />
+					    <label for="cb5"></label>
+					  </div>
+					</td>
+				</tr>
+
+			</tbody>
+
+
+		</table>
+	</div>
+	Vamo dividir contas, eeeba
+
+</body>
+</html>
