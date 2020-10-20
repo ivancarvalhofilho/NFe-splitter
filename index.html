@@ -139,8 +139,74 @@
 
 	#my-table {
 		transition: 1s;
+		margin-top: 50px;
 	}
 	
+	.box {
+		width: 30px;
+		height: 30px;
+		border-radius: 3px;
+	}
+
+	.dividers-header {
+		display: flex;
+		justify-content: center;
+		font-size: 26px;
+		font-weight: bold;
+		border-bottom: 1px solid white;
+		width: 80%;
+		margin: auto;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+
+	.dividers-input-parent {
+		display: inline-flex;
+		align-items: center;
+		width: 100%;
+		margin-bottom: 15px;
+		position: relative;
+	}
+
+	.dividers-input-parent > input {
+		width: 200px;
+		margin-right: 20px;
+	}
+
+	.dividers-setup {
+	    display: flex;
+	    flex-flow: column;
+	}
+
+	.add-new-divider {
+		background: transparent;
+		border-radius: 3em;
+		height: 25px;
+		border: 2px solid white;
+		display: flex;
+		margin: auto;
+		justify-content: center;
+		align-items: center;
+		font-weight: bold;
+		padding: 10px 20px;
+		cursor: pointer;
+	}
+
+	.remove {
+		position: absolute;
+    	right: 55px;
+		top: 5px;
+		border-radius: 3em;
+		border: 1px solid transparent;
+		background: #4E434E;
+		color: #EBEBEA;
+		padding: 3px 10px;
+		font-size: 20px;
+		cursor: pointer;
+	}
+	.remove:after {
+		content: 'Remover';
+	}
 </style>
 
 <script type="text/javascript">
@@ -151,6 +217,7 @@
             this.lineNumber = 0
             this.trOpenned = 0
             this.tdOpenned = 0
+            this.divOpenned = 0
 	    }
 
 	    tr () {
@@ -167,6 +234,21 @@
 	    	return !this.tdOpenned ? (++this.tdOpenned) && `<td class="${className || ''}">` : (this.tdOpenned--) && '</td>'
 	    }
 
+	    div (className, onclick) {
+	    	this.outputHtml += !this.divOpenned ? (++this.divOpenned) && `<div class="${className || ''}" onclick="${onclick || ''}">` : (this.divOpenned--) && '</div>'
+	    	return this
+	    }
+
+	    input (id, className, onBlur) {
+	    	this.outputHtml +=  `<input type="text" class="${className || ''}" id="${id || ''}" onblur="${onBlur || ''}" />`
+	    	return this
+	    }
+
+	    concat (html) {
+	    	this.outputHtml += html
+	    	return this
+	    }
+
 	    renderCheck(color) {
 	    	this.outputHtml += 
 	            `<div class="checkbox ${color}">
@@ -177,12 +259,12 @@
 	    }
 	}
 
-	const dividersEnum = ['blue', 'red', 'orange', 'green', 'purple']
-	let dividers = [{nome: 'ivan'}, {nome: 'nico'} ]
+	let dividersEnum = ['blue', 'red', 'orange', 'green', 'purple']
+	let dividers = [{nome: 'ivan', color: 'blue'}, {nome: 'nico', color: 'red'} ]
 	let tableJson = null;
 
 	function renderTable() {
-		var tableLines = new LineTableNFe();
+		let tableLines = new LineTableNFe();
 		tableJson.each(index => {
 			tableLines
 				.tr()
@@ -193,7 +275,7 @@
 				.td(null, 'checkbox-column')
 
 			dividers.forEach((divider, index) => 
-				tableLines.renderCheck(dividersEnum[index])
+				tableLines.renderCheck(divider.color)
 			)
 			
 			tableLines.td().tr()
@@ -202,6 +284,52 @@
 		$("#my-table tbody").html(tableLines.outputHtml)
 		$("#my-table").show()
 		$("#my-table").css('filter', 'opacity(1)')
+	}
+
+	function addNewDivider () {
+		debugger
+		const currentColor = dividersEnum[dividers.length]
+		const removeButton = 
+			new LineTableNFe()
+				.div(currentColor + " remove", `removeDivider('${currentColor}', this.value)`).div()
+
+		const boxColor = 
+			new LineTableNFe()
+				.div(currentColor + " box").div()
+
+		let newDivider = 
+			new LineTableNFe()
+				.div("dividers-input-parent")
+				.input('divider-' + currentColor, null, `changeDividerName('${currentColor}', this.value)`)
+				.concat(removeButton.outputHtml)
+				.concat(boxColor.outputHtml)
+				.div()
+
+		dividers.push({nome: 'novo', color: currentColor})
+
+		$(".dividers-setup").append(newDivider.outputHtml)
+
+		if(dividers.length === 5) {
+			$(".add-new-divider").hide()
+		}
+
+		renderTable()
+	}
+
+
+	function removeDivider (dividerColor) {
+	  	dividers.splice(dividersEnum.indexOf(dividerColor), 1);
+	  	[dividersEnum[dividersEnum.indexOf(dividerColor)], dividersEnum[dividers.length]] = [dividersEnum[dividers.length], dividersEnum[dividersEnum.indexOf(dividerColor)]];
+	  	$(`.${dividerColor}.remove`).parent().remove()
+	  	$(".add-new-divider").show()
+	  	renderTable()
+	}
+
+	function changeDividerName (dividerColor, name) {
+		dividers[dividersEnum.indexOf(dividerColor)] = {
+			nome: name,
+			color: dividerColor
+		}
 	}
 
 	$(document).ready(function(){
@@ -231,10 +359,10 @@
 
 					renderTable()
 				})
-
 		});
 
 	});
+
 
 </script>
 
@@ -255,7 +383,7 @@
 		</span>
 
 		<label class="switch">
-			<input type="checkbox">
+			<input type="checkbox" disabled>
 			<span class="slider round"></span>
 		</label>
 
@@ -264,13 +392,28 @@
 		</span>
 	</div>
 
-	
 	<div class="my-input">
 		<form id="formGetNFe" action="javascript:void(0);">
-			<input type="text" name="NFe-URL" id="NFeURL">
+			<input type="text" name="NFe-URL" id="NFeURL" placeholder="Ex: https://nfce.fazenda.mg.gov.br/portalnfce/sistema/qrcode.xhtml?p=31200922069520001165651060000256509000256514|2|1|1|3D10506C54D840F9AA3D81EC7E30D993F20E9532">
 			<button type="submit" class="go-input"> Buscar </span>	
 		</form>
 		
+	</div>
+
+	<div class="dividers-setup">
+		<span class="dividers-header">Divisores</span>
+		<div class="dividers-input-parent">
+			<input type="text" id="divider-blue" placeholder="Ex: Ivan" onblur="changeDividerName('blue', this.value)">
+			<div class="blue box"></div>
+		</div>
+		<div class="dividers-input-parent">
+			<input type="text" id="divider-red" placeholder="Ex: Nicolas" onblur="changeDividerName('red', this.value)">
+			<div class="red box"></div>
+		</div>
+	</div>
+
+	<div class="add-new-divider" onclick="addNewDivider()">
+		Adicionar mais uma pessoa
 	</div>
 
 	<div id="my-table" style="display: none; filter: opacity(0);">
@@ -324,7 +467,7 @@
 
 		</table>
 	</div>
-	Vamo dividir contas, eeeba
+
 
 </body>
 </html>
