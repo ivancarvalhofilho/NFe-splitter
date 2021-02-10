@@ -128,6 +128,11 @@
 		padding: 0 10px;
 	}
 
+	#my-table td {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
 	#my-table table{
 		border-collapse: collapse;
 	}
@@ -142,13 +147,18 @@
 		margin-top: 50px;
 	}
 	
-	.box {
+	.circle {
 		width: 30px;
 		height: 30px;
-		border-radius: 3px;
+		border-radius: 50%;
+	}
+	.small {
+		width: 15px;
+		height: 15px;
 	}
 
-	.dividers-header {
+	.dividers-header,
+	.dividers-payout-parent > span {
 		display: flex;
 		justify-content: center;
 		font-size: 26px;
@@ -158,14 +168,18 @@
 		margin: auto;
 		margin-top: 20px;
 		margin-bottom: 20px;
+	    min-width: 25vw;
 	}
 
 	.dividers-input-parent {
 		display: inline-flex;
 		align-items: center;
 		width: 100%;
+	    max-width: 375px;
+	    margin: auto;
 		margin-bottom: 15px;
 		position: relative;
+		justify-content: center;
 	}
 
 	.dividers-input-parent > input {
@@ -207,6 +221,60 @@
 	.remove:after {
 		content: 'Remover';
 	}
+
+	.dividers-payout {
+		display: flex;
+	    align-items: center;
+	    justify-content: space-evenly;
+	    padding: 10px 0;
+	}
+	.dividers-payout input::-webkit-outer-spin-button,
+	.dividers-payout input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	.dividers-payout span {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: calc(100% - 30px);
+		margin-left: 10px;
+	}
+
+	.dividers-payout > div:first-child {
+		display: flex;
+	    align-items: center;
+	    justify-content: flex-start;
+		width: 200px;
+	}
+
+	input[type="number"] {
+		width: 100px;
+	    padding: 5px 10px 5px 40px;
+	}
+
+	.RS-prefix {
+		position: relative;
+	}
+
+	.RS-prefix::after {    
+		content: 'R$';
+	    position: absolute;
+	    display: flex;
+	    left: 15px;
+	    justify-content: center;
+	    align-items: center;
+	    top: 0;
+	    height: 100%;
+	    color: gray;
+	    font-size: 18px;	
+	}
+
+	.dividers-result {
+		display: flex;
+		justify-content: space-around;
+	}
+
 </style>
 
 <script type="text/javascript">
@@ -239,8 +307,8 @@
 	    	return this
 	    }
 
-	    input (id, className, onBlur) {
-	    	this.outputHtml +=  `<input type="text" class="${className || ''}" id="${id || ''}" onblur="${onBlur || ''}" />`
+	    input (id, className, onBlur, extraTags) {
+	    	this.outputHtml +=  `<input type="text" class="${className || ''}" id="${id || ''}" onblur="${onBlur || ''}" ${extraTags || ''}/>`
 	    	return this
 	    }
 
@@ -257,13 +325,31 @@
 	            </div>`
         	return this
 	    }
+
+	    renderDividerPayout(divider) {
+	    	this.outputHtml += 
+	    		`
+    			<div class="dividers-payout">
+					<div>
+						<div class="${divider.color} circle small"></div>
+						<span id="payout-span-${divider.color}">${divider.nome}</span>
+					</div>	
+					<div class="RS-prefix">
+						<input type="number" id="divider-${divider.color}" onblur="changeDividerCashout('${divider.color}', this.value)">
+					</div>
+				</div>
+	    		`
+        	return this
+	    }
 	}
 
+	let namesExample = ['Ivan', 'Nicolas', 'orange', 'green', 'purple']
 	let dividersEnum = ['blue', 'red', 'orange', 'green', 'purple']
-	let dividers = [{nome: 'ivan', color: 'blue'}, {nome: 'nico', color: 'red'} ]
+	let dividers = [ ]
 	let tableJson = null;
 
 	function renderTable() {
+		if(!tableJson) return;
 		let tableLines = new LineTableNFe();
 		tableJson.each(index => {
 			tableLines
@@ -286,8 +372,16 @@
 		$("#my-table").css('filter', 'opacity(1)')
 	}
 
+	function addDividerPayout(currentColor) {
+		let newDividerPayout =
+				new LineTableNFe()
+						.renderDividerPayout(dividers.find(divider => divider.color === currentColor))
+
+		$(".dividers-payout-container")
+				.append(newDividerPayout.outputHtml)
+	}
+
 	function addNewDivider () {
-		debugger
 		const currentColor = dividersEnum[dividers.length]
 		const removeButton = 
 			new LineTableNFe()
@@ -295,23 +389,33 @@
 
 		const boxColor = 
 			new LineTableNFe()
-				.div(currentColor + " box").div()
+				.div(currentColor + " circle").div()
 
 		let newDivider = 
 			new LineTableNFe()
 				.div("dividers-input-parent")
-				.input('divider-' + currentColor, null, `changeDividerName('${currentColor}', this.value)`)
-				.concat(removeButton.outputHtml)
-				.concat(boxColor.outputHtml)
-				.div()
+				.input('divider-' + currentColor, null, `changeDividerName('${currentColor}', this.value)`,
+						dividers.length < 2 && `placeholder="Ex: ${namesExample[dividers.length]}"`)
 
-		dividers.push({nome: 'novo', color: currentColor})
+		if (dividers.length >= 2) {
+			newDivider
+				.concat(removeButton.outputHtml)
+		}
+
+		newDivider
+			.concat(boxColor.outputHtml)
+			.div()
+
+		dividers.push({nome: currentColor, color: currentColor, cashout: 0})
 
 		$(".dividers-setup").append(newDivider.outputHtml)
 
 		if(dividers.length === 5) {
 			$(".add-new-divider").hide()
 		}
+
+		addDividerPayout(currentColor);
+
 
 		renderTable()
 	}
@@ -326,13 +430,28 @@
 	}
 
 	function changeDividerName (dividerColor, name) {
+		const payoutSpan = $(`#payout-span-${dividerColor}`);
+		if(!payoutSpan.length){
+			addDividerPayout(dividerColor)
+		}
+		payoutSpan.html(name)
+
 		dividers[dividersEnum.indexOf(dividerColor)] = {
-			nome: name,
-			color: dividerColor
+			...dividers[dividersEnum.indexOf(dividerColor)],
+			nome: name
+		}
+	}
+
+	function changeDividerCashout (dividerColor, cashout) {
+		dividers[dividersEnum.indexOf(dividerColor)] = {
+			...dividers[dividersEnum.indexOf(dividerColor)],
+			cashout: cashout
 		}
 	}
 
 	$(document).ready(function(){
+		addNewDivider ()
+		addNewDivider ()
 
 		$("#formGetNFe").submit( function () {
 
@@ -395,21 +514,21 @@
 	<div class="my-input">
 		<form id="formGetNFe" action="javascript:void(0);">
 			<input type="text" name="NFe-URL" id="NFeURL" placeholder="Ex: https://nfce.fazenda.mg.gov.br/portalnfce/sistema/qrcode.xhtml?p=31200922069520001165651060000256509000256514|2|1|1|3D10506C54D840F9AA3D81EC7E30D993F20E9532">
-			<button type="submit" class="go-input"> Buscar </span>	
+			<button type="submit" class="go-input"> Buscar </button>
 		</form>
 		
 	</div>
 
 	<div class="dividers-setup">
 		<span class="dividers-header">Divisores</span>
-		<div class="dividers-input-parent">
-			<input type="text" id="divider-blue" placeholder="Ex: Ivan" onblur="changeDividerName('blue', this.value)">
-			<div class="blue box"></div>
-		</div>
-		<div class="dividers-input-parent">
-			<input type="text" id="divider-red" placeholder="Ex: Nicolas" onblur="changeDividerName('red', this.value)">
-			<div class="red box"></div>
-		</div>
+<!--		<div class="dividers-input-parent">-->
+<!--			<input type="text" id="divider-blue" placeholder="Ex: Ivan" onblur="changeDividerName('blue', this.value)">-->
+<!--			<div class="blue circle"></div>-->
+<!--		</div>-->
+<!--		<div class="dividers-input-parent">-->
+<!--			<input type="text" id="divider-red" placeholder="Ex: Nicolas" onblur="changeDividerName('red', this.value)">-->
+<!--			<div class="red circle"></div>-->
+<!--		</div>-->
 	</div>
 
 	<div class="add-new-divider" onclick="addNewDivider()">
@@ -463,11 +582,32 @@
 				</tr>
 
 			</tbody>
-
-
 		</table>
 	</div>
+	<div class="nfe-total">
+		Total da nota: <b>R$ 50,00</b>
+	</div>
 
+	<div class="dividers-payout-parent">
+
+		<span>Quem pagou a conta?</span>
+
+		<div class="dividers-payout-container">
+
+		</div>
+	</div>
+
+	<div class="dividers-payout-parent">
+
+		<span>Valor que cada um deve:</span>
+
+		<div class="dividers-result-container">
+			<div class="dividers-result">
+				<span>Ivan:</span>
+				<b>R$ 50,00</b>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
