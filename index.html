@@ -158,7 +158,7 @@
 	}
 
 	.dividers-header,
-	.dividers-payout-parent > span {
+	.dividers-cashin-parent > span {
 		display: flex;
 		justify-content: center;
 		font-size: 26px;
@@ -222,18 +222,18 @@
 		content: 'Remover';
 	}
 
-	.dividers-payout {
+	.dividers-cashin {
 		display: flex;
 	    align-items: center;
 	    justify-content: space-evenly;
 	    padding: 10px 0;
 	}
-	.dividers-payout input::-webkit-outer-spin-button,
-	.dividers-payout input::-webkit-inner-spin-button {
+	.dividers-cashin input::-webkit-outer-spin-button,
+	.dividers-cashin input::-webkit-inner-spin-button {
 		-webkit-appearance: none;
 		margin: 0;
 	}
-	.dividers-payout span {
+	.dividers-cashin span {
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -241,7 +241,7 @@
 		margin-left: 10px;
 	}
 
-	.dividers-payout > div:first-child {
+	.dividers-cashin > div:first-child {
 		display: flex;
 	    align-items: center;
 	    justify-content: flex-start;
@@ -270,7 +270,7 @@
 	    font-size: 18px;	
 	}
 
-	.dividers-result {
+	.dividers-payout {
 		display: flex;
 		justify-content: space-around;
 	}
@@ -329,10 +329,10 @@
 	    renderDividerPayout(divider) {
 	    	this.outputHtml += 
 	    		`
-    			<div class="dividers-payout">
+    			<div class="dividers-cashin">
 					<div>
 						<div class="${divider.color} circle small"></div>
-						<span id="payout-span-${divider.color}">${divider.nome}</span>
+						<span id="cashin-span-${divider.color}">${divider.nome}</span>
 					</div>	
 					<div class="RS-prefix">
 						<input type="number" id="divider-${divider.color}" onblur="changeDividerCashout('${divider.color}', this.value)">
@@ -343,9 +343,9 @@
 	    }
 	}
 
-	let namesExample = ['Ivan', 'Nicolas', 'orange', 'green', 'purple']
+	let namesExample = ['Ivan', 'Nicolas']
 	let dividersEnum = ['blue', 'red', 'orange', 'green', 'purple']
-	let dividers = [ ]
+	let dividers = []
 	let tableJson = null;
 
 	function renderTable() {
@@ -377,8 +377,15 @@
 				new LineTableNFe()
 						.renderDividerPayout(dividers.find(divider => divider.color === currentColor))
 
-		$(".dividers-payout-container")
+		$(".dividers-cashin-container")
 				.append(newDividerPayout.outputHtml)
+	}
+
+	function removeDividerPayout(dividerColor) {
+		const cashinSpan = $(`#cashin-span-${dividerColor}`);
+		if(!!cashinSpan.length){
+			cashinSpan.parent().parent().remove()
+		}
 	}
 
 	function addNewDivider () {
@@ -406,7 +413,7 @@
 			.concat(boxColor.outputHtml)
 			.div()
 
-		dividers.push({nome: currentColor, color: currentColor, cashout: 0})
+		dividers.push({nome: currentColor, color: currentColor, cashIn: 0})
 
 		$(".dividers-setup").append(newDivider.outputHtml)
 
@@ -416,12 +423,12 @@
 
 		addDividerPayout(currentColor);
 
-
 		renderTable()
 	}
 
-
 	function removeDivider (dividerColor) {
+		removeDividerPayout(dividerColor)
+
 	  	dividers.splice(dividersEnum.indexOf(dividerColor), 1);
 	  	[dividersEnum[dividersEnum.indexOf(dividerColor)], dividersEnum[dividers.length]] = [dividersEnum[dividers.length], dividersEnum[dividersEnum.indexOf(dividerColor)]];
 	  	$(`.${dividerColor}.remove`).parent().remove()
@@ -430,11 +437,11 @@
 	}
 
 	function changeDividerName (dividerColor, name) {
-		const payoutSpan = $(`#payout-span-${dividerColor}`);
-		if(!payoutSpan.length){
+		const cashinSpan = $(`#cashin-span-${dividerColor}`);
+		if(!cashinSpan.length){
 			addDividerPayout(dividerColor)
 		}
-		payoutSpan.html(name)
+		cashinSpan.html(name)
 
 		dividers[dividersEnum.indexOf(dividerColor)] = {
 			...dividers[dividersEnum.indexOf(dividerColor)],
@@ -442,16 +449,16 @@
 		}
 	}
 
-	function changeDividerCashout (dividerColor, cashout) {
+	function changeDividerCashout (dividerColor, cashIn) {
 		dividers[dividersEnum.indexOf(dividerColor)] = {
 			...dividers[dividersEnum.indexOf(dividerColor)],
-			cashout: cashout
+			cashIn: cashIn
 		}
 	}
 
 	$(document).ready(function(){
-		addNewDivider ()
-		addNewDivider ()
+		addNewDivider () // add ivan
+		addNewDivider () // add nico
 
 		$("#formGetNFe").submit( function () {
 
@@ -479,10 +486,7 @@
 					renderTable()
 				})
 		});
-
 	});
-
-
 </script>
 
 <body>
@@ -521,14 +525,6 @@
 
 	<div class="dividers-setup">
 		<span class="dividers-header">Divisores</span>
-<!--		<div class="dividers-input-parent">-->
-<!--			<input type="text" id="divider-blue" placeholder="Ex: Ivan" onblur="changeDividerName('blue', this.value)">-->
-<!--			<div class="blue circle"></div>-->
-<!--		</div>-->
-<!--		<div class="dividers-input-parent">-->
-<!--			<input type="text" id="divider-red" placeholder="Ex: Nicolas" onblur="changeDividerName('red', this.value)">-->
-<!--			<div class="red circle"></div>-->
-<!--		</div>-->
 	</div>
 
 	<div class="add-new-divider" onclick="addNewDivider()">
@@ -588,21 +584,21 @@
 		Total da nota: <b>R$ 50,00</b>
 	</div>
 
-	<div class="dividers-payout-parent">
+	<div class="dividers-cashin-parent">
 
 		<span>Quem pagou a conta?</span>
 
-		<div class="dividers-payout-container">
+		<div class="dividers-cashin-container">
 
 		</div>
 	</div>
 
-	<div class="dividers-payout-parent">
+	<div class="dividers-cashin-parent">
 
 		<span>Valor que cada um deve:</span>
 
 		<div class="dividers-result-container">
-			<div class="dividers-result">
+			<div class="dividers-payout">
 				<span>Ivan:</span>
 				<b>R$ 50,00</b>
 			</div>
