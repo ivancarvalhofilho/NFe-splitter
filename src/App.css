@@ -1,0 +1,99 @@
+.instructions-inner {
+  height: 0px;
+  width: 80%;
+  margin: auto;
+  border: 1px solid #EBEBEA;
+  border-radius: 4px;
+  position: relative;
+}
+
+.instructions-inner > span {
+  padding: 10px;
+  background: #352C38;
+  position: absolute;
+  left: 30px;
+  top: -24px;
+  font-size: 24px;
+}
+
+*:focus {
+  outline: none;
+}
+
+input {
+  border: 1px solid black;
+  border-radius: 3em;
+  min-height: 30px;
+  width: 300px;
+  padding: 5px 100px 5px 25px;
+}
+
+input[type="number"] {
+  width: 100px;
+  padding: 5px 10px 5px 40px;
+}
+/*
+See the explanation of the animation here:
+https://codepen.io/timseverien/pen/yvJkm
+*/
+@-webkit-keyframes check {
+  0% {
+    height: 0;
+    width: 0;
+  }
+  25% {
+    height: 0;
+    width: 10px;
+  }
+  50% {
+    height: 20px;
+    width: 10px;
+  }
+}
+@-moz-keyframes check {
+  0% {
+    height: 0;
+    width: 0;
+  }
+  25% {
+    height: 0;
+    width: 10px;
+  }
+  50% {
+    height: 20px;
+    width: 10px;
+  }
+}
+@-ms-keyframes check {
+  0% {
+    height: 0;
+    width: 0;
+  }
+  25% {
+    height: 0;
+    width: 10px;
+  }
+  50% {
+    height: 20px;
+    width: 10px;
+  }
+}
+@keyframes check {
+  0% {
+    height: 0;
+    width: 0;
+  }
+  25% {
+    height: 0;
+    width: 10px;
+  }
+  50% {
+    height: 20px;
+    width: 10px;
+  }
+}
+body {
+  background-color: #6aa;
+  font-family: "Lato", sans-serif;
+  font-weight: 100%;
+}
