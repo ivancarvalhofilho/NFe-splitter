@@ -93,35 +93,48 @@ const mock = [
 ]
 
 function FoodTableSection(props) {
-  return (
-      <MyTable>
-          <thead>
-          <tr>
-              <th>Produto</th>
-              <th>Qtd</th>
-              <th>UN</th>
-              <th>Valor</th>
-              <Spliters>Dividindo</Spliters>
-          </tr>
-          </thead>
-          <tbody>
-          {mock.map((item, rowNumber) => <tr>
-              <td>{item.nome}</td>
-              <QtdColumn>{item.qtd}</QtdColumn>
-              <td>{item.unidade}</td>
-              <td>{item.valor}</td>
-              <CheckboxColumn>
-                  {props.dividers.map (divider =>
-                      <Checkbox color={props.colorsHexa[divider.color]}>
-                          <input type="checkbox" name={`check-${divider.color}-${rowNumber}`} id={`check-${divider.color}-${rowNumber}`}/>
-                          <label htmlFor={`check-${divider.color}-${rowNumber}`}/>
-                      </Checkbox>
-                  )}
-              </CheckboxColumn>
-          </tr>)}
-          </tbody>
-      </MyTable>
-  );
+    function clearItemCost(item) {
+        let value = /[\d,]+/g.exec(item.valor)[0]
+        value = value.replace(',', '.')
+        return Number(value);
+    }
+
+    return (
+        <>
+
+            <MyTable>
+                <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Qtd</th>
+                    <th>UN</th>
+                    <th>Valor</th>
+                    <Spliters>Dividindo</Spliters>
+                </tr>
+                </thead>
+                <tbody>
+                {mock.map((item, rowNumber) => <tr>
+                    <td>{item.nome}</td>
+                    <QtdColumn>{item.qtd}</QtdColumn>
+                    <td>{item.unidade}</td>
+                    <td>{item.valor}</td>
+                    <CheckboxColumn>
+                        {props.dividers.map (divider =>
+                            <Checkbox color={props.colorsHexa[divider.color]}>
+                                <input type="checkbox" name={`check-${divider.color}-${rowNumber}`} id={`check-${divider.color}-${rowNumber}`}/>
+                                <label htmlFor={`check-${divider.color}-${rowNumber}`}/>
+                            </Checkbox>
+                        )}
+                    </CheckboxColumn>
+                </tr>)}
+                </tbody>
+            </MyTable>
+
+            <div className="nfe-total">
+                Total da nota: <b>R$ {mock.map(item => clearItemCost(item)).reduce((previousValue, currentValue) => (previousValue + currentValue))}</b>
+            </div>
+        </>
+    );
 }
 
 export default FoodTableSection;

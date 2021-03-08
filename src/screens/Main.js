@@ -7,6 +7,7 @@ import {useState} from "react";
 import update from 'immutability-helper';
 import DividersConfigurationSection from "../sections/DividersConfigurationSection";
 import FoodTableSection from "../sections/FoodTableSection";
+import DividersCashinSection from "../sections/DividersCashinSection";
 
 
 const MainStyle = styled.div`
@@ -36,55 +37,13 @@ export const Circle = styled.div`
   height: 30px;
   border-radius: 50%;
   background: ${props => props.color};
-`
-const Small = styled.div`
-  width: 15px;
-  height: 15px;
-`
-
-const DividersCashinParent = styled.div`
-  & > span {
-    display: flex;
-    justify-content: center;
-    font-size: 26px;
-    font-weight: bold;
-    border-bottom: 1px solid white;
-    width: 80%;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    min-width: 25vw;
-  }
+  ${props => props.small && `
+      width: 15px;
+      height: 15px;
+  `}
 `
 
-const DividersCashin = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  padding: 10px 0;
-
-  & span {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: calc(100% - 30px);
-    margin-left: 10px;
-  }
-
-  & input::-webkit-outer-spin-button,
-  & input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  & > div:first-child {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 200px;
-  }
-`
-const RSPrefix = styled.div`
+export const RSPrefix = styled.div`
   position: relative;
 
   &::after {
@@ -159,6 +118,8 @@ function Main() {
         }
     ])
 
+    const dividersWithName = dividers.filter(divider => !!divider.name)
+
     return (
         <MainStyle>
             <Advertising>Advertising</Advertising>
@@ -182,7 +143,8 @@ function Main() {
                 colorsHexa={colorsHexa}
             />
 
-            
+            {dividersWithName.length > 0 && <DividersCashinSection dividersWithName={dividersWithName} colorsHexa={colorsHexa}/>}
+
         </MainStyle>
     );
 }
