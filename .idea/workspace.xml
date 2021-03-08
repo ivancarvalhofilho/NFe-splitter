@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01cf89c4-603c-4367-9ed6-dea3649b894e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/SwitchButton.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sections/InstructionsSection.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sections/URLTypeSection.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/DividersConfigurationSection.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/SubmitURLInput.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sections/InstructionsSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/InstructionsSection.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +35,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/screens" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/sections" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -45,6 +48,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\gitrubens\NFe-splitter\src\sections" />
       <recent name="C:\gitrubens\NFe-splitter\src\screens" />
       <recent name="C:\gitrubens\NFe-splitter\src\components" />
     </key>
@@ -78,7 +82,7 @@
       <option name="presentableId" value="Default" />
       <updated>1612917186474</updated>
       <workItem from="1612917187572" duration="5152000" />
-      <workItem from="1615143623886" duration="8640000" />
+      <workItem from="1615143623886" duration="15905000" />
     </task>
     <servers />
   </component>
