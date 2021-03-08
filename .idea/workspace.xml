@@ -3,10 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="01cf89c4-603c-4367-9ed6-dea3649b894e" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/src/sections/DividersConfigurationSection.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sections/SubmitURLInput.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/FoodTableSection.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/SubmitURLInputSection.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sections/InstructionsSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/InstructionsSection.js" afterDir="false" />
     </list>
@@ -82,7 +84,7 @@
       <option name="presentableId" value="Default" />
       <updated>1612917186474</updated>
       <workItem from="1612917187572" duration="5152000" />
-      <workItem from="1615143623886" duration="15905000" />
+      <workItem from="1615143623886" duration="17936000" />
     </task>
     <servers />
   </component>

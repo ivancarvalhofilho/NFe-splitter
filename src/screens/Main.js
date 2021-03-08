@@ -6,6 +6,7 @@ import SubmitURLInputSection from "../sections/SubmitURLInputSection";
 import {useState} from "react";
 import update from 'immutability-helper';
 import DividersConfigurationSection from "../sections/DividersConfigurationSection";
+import FoodTableSection from "../sections/FoodTableSection";
 
 
 const MainStyle = styled.div`
@@ -29,41 +30,6 @@ const MainStyle = styled.div`
   }
 `
 
-const Spliters = styled.div`
-  width: 200px;
-  padding-left: 30px !important;
-`
-
-const CheckboxColumn = styled.div`
-  display: flex;
-  padding-left: 30px;
-`
-
-const QtdColumn = styled.div`
-  text-align: end;
-`
-const MyTable = styled.div`
-  transition: 1s;
-  margin-top: 50px;
-
-  & th {
-    padding: 0 10px;
-  }
-
-  & td {
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-
-  & table {
-    border-collapse: collapse;
-  }
-
-  & thead tr:first-child th {
-    border-collapse: collapse;
-    border-bottom: 1px solid white !important;
-  }
-`
 
 export const Circle = styled.div`
   width: 30px;
@@ -211,6 +177,12 @@ function Main() {
                 colorsHexa={colorsHexa}
             />
 
+            <FoodTableSection
+                dividers={dividers}
+                colorsHexa={colorsHexa}
+            />
+
+            
         </MainStyle>
     );
 }
