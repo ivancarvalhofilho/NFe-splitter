@@ -91,22 +91,24 @@ body {
   position: relative;
   width: 50px;
   border-radius: 5px;
-  background: #00ACE0;
+  background: #ffffff;
+  border: 6px solid #00ACE0;
+  box-sizing: border-box;
 }
 .checkbox.blue label, .blue {
-  background: #00ACE0;
+  border-color: #00ACE0;
 }
 .checkbox.red label, .red {
-  background: #E54B4B;
+  border-color: #E54B4B;
 }
 .checkbox.orange label, .orange {
-  background: #F99F39;
+  border-color: #F99F39;
 }
 .checkbox.green label, .green {
-  background: #3D7068;
+  border-color: #3D7068;
 }
 .checkbox.purple label, .purple {
-  background: #290052;
+  border-color: #290052;
 }
 .checkbox label:after {
   /*

@@ -31,7 +31,6 @@ const MainStyle = styled.div`
   }
 `
 
-
 export const Circle = styled.div`
   width: 30px;
   height: 30px;
@@ -81,7 +80,7 @@ const Footer = styled.div`
 const Advertising = styled.div`
   background: #EBEBEA;
   width: 300px;
-  height: 40px;
+  height: 40px	;
   color: black;
   display: flex;
   justify-content: center;
@@ -90,63 +89,91 @@ const Advertising = styled.div`
 `
 
 const colorsHexa = {
-    blue: '#00ACE0',
-    red: '#E54B4B',
-    orange: '#F99F39',
-    green: '#3D7068',
-    purple: '#290052',
+	blue: '#00ACE0',
+	red: '#E54B4B',
+	orange: '#F99F39',
+	green: '#3D7068',
+	purple: '#290052',
 }
 
 function Main() {
-    const [colorsNames, setColorsNames] = useState([
-        'blue',
-        'red',
-        'orange',
-        'green',
-        'purple',
-    ])
-    const [dividers, setDividers] = useState([
-        {
-            name: '',
-            placeholder: 'ivan',
-            color: colorsNames[0]
-        },
-        {
-            name: '',
-            placeholder: 'nicolas',
-            color: colorsNames[1]
-        }
-    ])
+	const [colorsNames, setColorsNames] = useState([
+		'blue',
+		'red',
+		'orange',
+		'green',
+		'purple',
+	])
+	const [dividers, setDividers] = useState([
+		{
+			name: '',
+			placeholder: 'ivan',
+			color: colorsNames[0],
+			payer: false,
+			asd: {
+				asdd:1
+			}
+		},
+		{
+			name: '',
+			placeholder: 'nicolas',
+			color: colorsNames[1],
+			payer: false,
+		}
+	])
 
-    const dividersWithName = dividers.filter(divider => !!divider.name)
 
-    return (
-        <MainStyle>
-            <Advertising>Advertising</Advertising>
 
-            <InstructionsSection/>
+	const dividersWithName = dividers.filter(divider => !!divider.name)
 
-            <URLTypeSection/>
+	function updatePayer(index) {
+		const clearedPayers = update(dividers, {
+				$set: dividers.map((div) =>
+					update(div, {
+						payer: {$set: false}
+					})
+				)
+			}
+		)
+		setDividers(update(clearedPayers, {
+			[index]: {
+				payer: {$set: true}
+			}
+		}))
+	}
 
-            <SubmitURLInputSection/>
+	return (
+		<MainStyle>
+			<Advertising>Advertising</Advertising>
 
-            <DividersConfigurationSection
-                dividers={dividers}
-                setDividers={setDividers}
-                colorsNames={colorsNames}
-                setColorsNames={setColorsNames}
-                colorsHexa={colorsHexa}
-            />
+			<InstructionsSection/>
 
-            <FoodTableSection
-                dividers={dividers}
-                colorsHexa={colorsHexa}
-            />
+			<URLTypeSection/>
 
-            {dividersWithName.length > 0 && <DividersCashinSection dividersWithName={dividersWithName} colorsHexa={colorsHexa}/>}
+			<SubmitURLInputSection/>
 
-        </MainStyle>
-    );
+			<DividersConfigurationSection
+				dividers={dividers}
+				setDividers={setDividers}
+				colorsNames={colorsNames}
+				setColorsNames={setColorsNames}
+				colorsHexa={colorsHexa}
+			/>
+
+			<FoodTableSection
+				dividers={dividers}
+				colorsHexa={colorsHexa}
+			/>
+
+			{dividersWithName.length > 0 &&
+			<DividersCashinSection
+				updatePayer={updatePayer}
+				dividersWithName={dividersWithName}
+				colorsHexa={colorsHexa}
+			/>}
+
+		</MainStyle>
+	);
 }
 
 export default Main;

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import update from "immutability-helper";
 import {Circle, RSPrefix} from "../screens/Main";
+import {Radio} from "../components/Radio";
+import BigRadio from "../components/Radio";
 
 const DividersCashinParent = styled.div`
   & > span {
@@ -26,8 +28,6 @@ const DividersCashin = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: calc(100% - 30px);
-    margin-left: 10px;
   }
 
   & input::-webkit-outer-spin-button,
@@ -39,24 +39,35 @@ const DividersCashin = styled.div`
   & > div:first-child {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     width: 200px;
+    justify-content: flex-end;
+    flex: 1;
+    & > span {
+      margin-left: 10px;
+    }
+  }
+  & > div:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+    margin-left: 10px;
   }
 `
+
 function DividersCashinSection(props) {
     return <DividersCashinParent>
         <span>Quem pagou a conta?</span>
 
         <div>
-            {props.dividersWithName.map(divider => <DividersCashin>
+            {props.dividersWithName.map((divider, index) => <DividersCashin>
                 <div>
                     <Circle small color={props.colorsHexa[divider.color]}/>
                     <span id={`cashin-span-${divider.color}`}>{divider.name}</span>
                 </div>
-                <RSPrefix>
-                    <input type="number" id={`divider-${divider.color}`}
-                           onBlur={`changeDividerCashout('${divider.color}', this.value)`}/>
-                </RSPrefix>
+                <div>
+                    <Radio color={props.colorsHexa[divider.color]} onClick={() => props.updatePayer(index)} active={divider.payer}/>
+                </div>
             </DividersCashin>)}
         </div>
 

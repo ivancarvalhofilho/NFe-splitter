@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01cf89c4-603c-4367-9ed6-dea3649b894e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/sections/DividersCashinSection.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Radio.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkbox.css" beforeDir="false" afterPath="$PROJECT_DIR$/checkbox.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sections/FoodTableSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/FoodTableSection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sections/DividersCashinSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/DividersCashinSection.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +34,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/sections" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -41,16 +43,18 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\gitrubens\NFe-splitter\src\sections" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components" />
       <recent name="C:\gitrubens\NFe-splitter\src\sections" />
       <recent name="C:\gitrubens\NFe-splitter\src\screens" />
       <recent name="C:\gitrubens\NFe-splitter\src\components" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\gitrubens\NFe-splitter\src\sections" />
     </key>
   </component>
   <component name="RunManager">
@@ -78,8 +82,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1612917186474</updated>
-      <workItem from="1612917187572" duration="5720000" />
+      <workItem from="1612917187572" duration="6959000" />
+      <workItem from="1612957415836" duration="674000" />
+      <workItem from="1612963870217" duration="2672000" />
       <workItem from="1615143623886" duration="20192000" />
+      <workItem from="1616541024213" duration="5165000" />
+      <workItem from="1616589668069" duration="616000" />
+      <workItem from="1617222391631" duration="1183000" />
+      <workItem from="1617281529184" duration="609000" />
+      <workItem from="1617635581965" duration="3970000" />
+      <workItem from="1618227629624" duration="2083000" />
+      <workItem from="1619643774372" duration="2415000" />
     </task>
     <servers />
   </component>
@@ -87,18 +100,52 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
+  <component name="WindowStateProjectService">
+    <state x="704" y="355" width="569" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1616543825242">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="704" y="355" width="569" height="403" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1616543825242" />
+    <state x="726" y="302" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1619646183260">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="726" y="302" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619646183260" />
+    <state width="1830" height="324" key="GridCell.Tab.0.bottom" timestamp="1618230392468">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1830" height="324" key="GridCell.Tab.0.bottom/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1618230392468" />
+    <state width="1830" height="324" key="GridCell.Tab.0.center" timestamp="1618230392468">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1830" height="324" key="GridCell.Tab.0.center/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1618230392468" />
+    <state width="1830" height="324" key="GridCell.Tab.0.left" timestamp="1618230392468">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1830" height="324" key="GridCell.Tab.0.left/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1618230392468" />
+    <state width="1830" height="324" key="GridCell.Tab.0.right" timestamp="1618230392468">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state width="1830" height="324" key="GridCell.Tab.0.right/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1618230392468" />
+    <state x="240" y="178" width="1022" height="737" key="SettingsEditor" timestamp="1612917504608">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="240" y="178" width="1022" height="737" key="SettingsEditor/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1612917504608" />
+    <state x="167" y="127" width="1653" height="853" key="VCS.FileHistoryDialog" timestamp="1615222347298">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="167" y="127" width="1653" height="853" key="VCS.FileHistoryDialog/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1615222347298" />
+    <state x="603" y="167" width="770" height="780" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1619646089859">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="603" y="167" width="770" height="780" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619646089859" />
+    <state x="889" y="182" width="915" height="655" key="find.popup" timestamp="1619646008600">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="889" y="182" width="915" height="655" key="find.popup/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619646008600" />
+    <state x="656" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1617640313962">
+      <screen x="67" y="27" width="1853" height="1053" />
+    </state>
+    <state x="656" y="259" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1617640313962" />
   </component>
 </project>

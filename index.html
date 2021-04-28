@@ -172,7 +172,8 @@
 	}
 
 	.dividers-header,
-	.dividers-cashin-parent > span {
+	.dividers-cashin-parent > span,
+	.dividers-payout-parent > span {
 		display: flex;
 		justify-content: center;
 		font-size: 26px;
@@ -236,6 +237,15 @@
 		content: 'Remover';
 	}
 
+	.dividers-payout  {
+		padding: 10px 0;
+	}
+
+	.dividers-payout > div:nth-child(2) {
+		width: 100px;
+		white-space: nowrap;
+	}
+
 	.dividers-cashin {
 		display: flex;
 	    align-items: center;
@@ -247,7 +257,9 @@
 		-webkit-appearance: none;
 		margin: 0;
 	}
-	.dividers-cashin span {
+	.dividers-cashin span,
+	.dividers-payout span
+	{
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -255,7 +267,8 @@
 		margin-left: 10px;
 	}
 
-	.dividers-cashin > div:first-child {
+	.dividers-cashin > div:first-child,
+	.dividers-payout > div:first-child {
 		display: flex;
 	    align-items: center;
 	    justify-content: flex-start;
@@ -351,7 +364,7 @@
         	return this
 	    }
 
-	    renderDividerPayout(divider) {
+	    renderDividerCashIn(divider) {
 	    	this.outputHtml += 
 	    		`
     			<div class="dividers-cashin">
@@ -361,6 +374,22 @@
 					</div>	
 					<div class="RS-prefix">
 						<input type="number" id="divider-${divider.color}" onblur="changeDividerCashout('${divider.color}', this.value)">
+					</div>
+				</div>
+	    		`
+        	return this
+	    }
+
+	    renderDividerPayout(divider) {
+	    	this.outputHtml +=
+	    		`
+    			<div class="dividers-payout">
+					<div>
+						<div class="${divider.color} circle small"></div>
+						<span>${divider.nome}</span>
+					</div>
+					<div>
+						<b id="payout-${divider.color}">R$ ${divider.cashIn}</b>
 					</div>
 				</div>
 	    		`
@@ -397,16 +426,27 @@
 		$("#my-table").css('filter', 'opacity(1)')
 	}
 
-	function addDividerPayout(currentColor) {
-		let newDividerPayout =
-				new LineTableNFe()
-						.renderDividerPayout(dividers.find(divider => divider.color === currentColor))
+	function addDividerCashIn(currentColor) {
+		let newDividerCashIn =
+			new LineTableNFe()
+				.renderDividerCashIn(dividers.find(divider => divider.color === currentColor))
 
 		$(".dividers-cashin-container")
-				.append(newDividerPayout.outputHtml)
+			.append(newDividerCashIn.outputHtml)
+
+		addDividerPayout(currentColor)
 	}
 
-	function removeDividerPayout(dividerColor) {
+	function addDividerPayout(currentColor) {
+		let newDividerPayout =
+			new LineTableNFe()
+				.renderDividerPayout(dividers.find(divider => divider.color === currentColor))
+
+		$(".dividers-payout-container")
+			.append(newDividerPayout.outputHtml)
+	}
+
+	function removeDividerCashIn(dividerColor) {
 		const cashinSpan = $(`#cashin-span-${dividerColor}`);
 		if(!!cashinSpan.length){
 			cashinSpan.parent().parent().remove()
@@ -446,13 +486,13 @@
 			$(".add-new-divider").hide()
 		}
 
-		addDividerPayout(currentColor);
+		addDividerCashIn(currentColor);
 
 		renderTable()
 	}
 
 	function removeDivider (dividerColor) {
-		removeDividerPayout(dividerColor)
+		removeDividerCashIn(dividerColor)
 
 	  	dividers.splice(dividersEnum.indexOf(dividerColor), 1);
 	  	[dividersEnum[dividersEnum.indexOf(dividerColor)], dividersEnum[dividers.length]] = [dividersEnum[dividers.length], dividersEnum[dividersEnum.indexOf(dividerColor)]];
@@ -464,7 +504,7 @@
 	function changeDividerName (dividerColor, name) {
 		const cashinSpan = $(`#cashin-span-${dividerColor}`);
 		if(!cashinSpan.length){
-			addDividerPayout(dividerColor)
+			addDividerCashIn(dividerColor)
 		}
 		cashinSpan.html(name)
 
@@ -475,6 +515,15 @@
 	}
 
 	function changeDividerCashout (dividerColor, cashIn) {
+
+		const payoutText = $(`#payout-${dividerColor}`);
+		if(!payoutText.length){
+			addDividerCashIn(dividerColor)
+		}
+
+		// TODO: Calculo
+		payoutText.html(`R$ ${cashIn}`)
+
 		dividers[dividersEnum.indexOf(dividerColor)] = {
 			...dividers[dividersEnum.indexOf(dividerColor)],
 			cashIn: cashIn
@@ -618,15 +667,11 @@
 		</div>
 	</div>
 
-	<div class="dividers-cashin-parent">
+	<div class="dividers-payout-parent">
 
 		<span>Valor que cada um deve:</span>
 
-		<div class="dividers-result-container">
-			<div class="dividers-payout">
-				<span>Ivan:</span>
-				<b>R$ 50,00</b>
-			</div>
+		<div class="dividers-payout-container">
 		</div>
 	</div>
 
