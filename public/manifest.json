@@ -18,7 +18,12 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "files": {
+    "path": "test/index.html"
+  },
+  "main": "test/index.html",
+  "entry": "test/index.html",
+  "homepage": "test/index.html",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

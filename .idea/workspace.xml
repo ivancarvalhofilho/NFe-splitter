@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="01cf89c4-603c-4367-9ed6-dea3649b894e" name="Default Changelist" comment="" />
+    <list default="true" id="01cf89c4-603c-4367-9ed6-dea3649b894e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNAME" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/oi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/test/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +36,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/sections" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -41,15 +50,17 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/build" />
       <recent name="$PROJECT_DIR$/public" />
       <recent name="C:\gitrubens\NFe-splitter\src\sections" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/build/static/html" />
+      <recent name="$PROJECT_DIR$/build" />
+      <recent name="$PROJECT_DIR$/build/static/oi" />
       <recent name="$PROJECT_DIR$/src/sections" />
-      <recent name="$PROJECT_DIR$/src/components" />
-      <recent name="C:\gitrubens\NFe-splitter\src\sections" />
-      <recent name="C:\gitrubens\NFe-splitter\src\screens" />
-      <recent name="C:\gitrubens\NFe-splitter\src\components" />
     </key>
   </component>
   <component name="RunManager">
@@ -87,7 +98,7 @@
       <workItem from="1617281529184" duration="609000" />
       <workItem from="1617635581965" duration="3970000" />
       <workItem from="1618227629624" duration="2083000" />
-      <workItem from="1619643774372" duration="15889000" />
+      <workItem from="1619643774372" duration="20129000" />
     </task>
     <servers />
   </component>
@@ -138,17 +149,17 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="603" y="167" width="770" height="780" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619658540251" />
-    <state x="889" y="182" width="915" height="655" key="find.popup" timestamp="1619658534794">
+    <state x="889" y="182" width="915" height="655" key="find.popup" timestamp="1619665923148">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="889" y="182" width="915" height="655" key="find.popup/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619658534794" />
+    <state x="889" y="182" width="915" height="655" key="find.popup/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619665923147" />
     <state x="657" y="252" key="run.anything.popup" timestamp="1619656131479">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="657" y="252" key="run.anything.popup/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619656131479" />
-    <state x="656" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1619650373362">
+    <state x="656" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1619664753805">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="656" y="259" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619650373362" />
+    <state x="656" y="259" width="672" height="678" key="search.everywhere.popup/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619664753805" />
   </component>
 </project>
