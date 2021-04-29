@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import SwitchButton from "../components/SwitchButton";
-
-
+import update from "immutability-helper";
 
 const MyTable = styled.table`
   transition: 1s;
@@ -14,6 +13,12 @@ const MyTable = styled.table`
   & td {
     padding-top: 10px;
     padding-bottom: 10px;
+  }
+  & tr td:nth-child(2) {
+    font-size: 16px;
+  }
+  & tr td:nth-child(3) {
+    font-size: 12px;
   }
 
   & table {
@@ -40,23 +45,24 @@ const Spliters = styled.th`
   padding-left: 30px !important;
 `
 
-const Checkbox = styled.div`
-  background-color: #fff;
+const Checkbox = styled.label`
   display: inline-block;
-  height: 50px;
+  height: 30px;
+  width: 30px;
   margin: 0 0.25em;
-  width: 50px;
   border-radius: 5px;
-  transform: scale(0.65);
   background: ${props => props.color};
+  border: 4px solid ${props => props.color};
+  cursor: pointer;
   & label {
     display: block;
-    height: 50px;
+    height: 30px;
+    width: 30px;
     position: relative;
-    width: 50px;
     border-radius: 5px;
-    //background: #00ACE0;
-    background: ${props => props.color};
+    background: white;
+    transition: 0.4s;
+    cursor: pointer;
   }
   & label:after {
     transform: scaleX(-1) rotate(135deg);
@@ -66,16 +72,20 @@ const Checkbox = styled.div`
     content: "";
     display: block;
     height: 20px;
-    left: 14px;
+    left: 2px;
     position: absolute;
-    top: 26px;
+    top: 16px;
     width: 10px;
+    border-color: ${props => props.color+"22"};
   }
-  &  label:hover:after {
-    border-color: white;
+  & label:hover:after {
+    border-color: ${props => props.color};
   }
   & input {
     display: none;
+  }
+  & input:checked + label {
+    background: ${props => props.color};
   }
   & input:checked + label:after {
     animation: check 0.8s;
@@ -83,14 +93,6 @@ const Checkbox = styled.div`
   }
 `
 
-const mock = [
-    {nome: "FILE PEITO FGO SADIA 1kg PFFZP", qtd: "1.0000", unidade: "UN", valor: "R$ 12,99"},
-    {nome: "CERVEJA PETRA 350ML PURO MALTE LATA", qtd: "1.0000", unidade: "CX", valor: "R$ 31,08"},
-    {nome: "MORTADELA PERDIGAO kg OURO DEF", qtd: "0.7020", unidade: "KG", valor: "R$ 11,86"},
-    {nome: "BATATA PRINGLES 112GR WAVY PIMENTA", qtd: "1.0000", unidade: "UN", valor: "R$ 14,90"},
-    {nome: "BATATA PRINGLES 120GR QUEIJO", qtd: "1.0000", unidade: "UN", valor: "R$ 7,99"},
-    {nome: "V.CHIL GATO NEGRO 750 MLTTO SC MERL", qtd: "1.0000", unidade: "GF", valor: "R$ 39,90"}
-]
 
 function FoodTableSection(props) {
     function clearItemCost(item) {
@@ -101,7 +103,6 @@ function FoodTableSection(props) {
 
     return (
         <>
-
             <MyTable>
                 <thead>
                 <tr>
@@ -113,15 +114,34 @@ function FoodTableSection(props) {
                 </tr>
                 </thead>
                 <tbody>
-                {mock.map((item, rowNumber) => <tr>
+                {props.foods.map((item, rowNumber) => <tr>
                     <td>{item.nome}</td>
                     <QtdColumn>{item.qtd}</QtdColumn>
                     <td>{item.unidade}</td>
                     <td>{item.valor}</td>
                     <CheckboxColumn>
                         {props.dividers.map (divider =>
-                            <Checkbox color={props.colorsHexa[divider.color]}>
-                                <input type="checkbox" name={`check-${divider.color}-${rowNumber}`} id={`check-${divider.color}-${rowNumber}`}/>
+                            <Checkbox color={props.colorsHexa[divider.color]} htmlFor={`check-${divider.color}-${rowNumber}`}>
+                                <input
+                                  onClick={(e) => {
+                                      if(props.foods[rowNumber].dividers.includes(divider.color)){
+                                          // remove
+                                          props.updateFood(update(props.foods, {
+                                              [rowNumber]: {
+                                                  dividers: {$splice: [[props.foods[rowNumber].dividers.indexOf(divider.color),1]]}
+                                              }
+                                          }))
+                                      } else {
+                                          // add
+                                          props.updateFood(update(props.foods, {
+                                              [rowNumber]: {
+                                                  dividers: {$push: [divider.color]}
+                                              }
+                                          }))
+                                      }
+
+                                  }}
+                                  type="checkbox" name={`check-${divider.color}-${rowNumber}`} id={`check-${divider.color}-${rowNumber}`} checked={props.foods[rowNumber].dividers.includes(divider.color)}/>
                                 <label htmlFor={`check-${divider.color}-${rowNumber}`}/>
                             </Checkbox>
                         )}
@@ -131,7 +151,10 @@ function FoodTableSection(props) {
             </MyTable>
 
             <div className="nfe-total">
-                Total da nota: <b>R$ {mock.map(item => clearItemCost(item)).reduce((previousValue, currentValue) => (previousValue + currentValue))}</b>
+                Total da nota: <b>R$ {props.foods.map(item => clearItemCost(item)).reduce((previousValue, currentValue) => (previousValue + currentValue)).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            })}</b>
             </div>
         </>
     );

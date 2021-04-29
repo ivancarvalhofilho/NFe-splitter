@@ -86,13 +86,26 @@ function DividersConfigurationSection(props) {
                         />
                         <Circle color={props.colorsHexa[divider.color]}/>
                         {index > 1 && <Remove onClick={() => {
+                            props.updateFood(update(props.foods, {
+                                $set: props.foods.map((food, rowNumber) =>
+                                  update(food, {
+                                    dividers: {$splice: [[props.foods[rowNumber].dividers.indexOf(divider.color),1]]}
+                                  })
+                                )
+                              }
+                            ))
+
                             props.setDividers(update(props.dividers, {
-                                $splice: [[index, 1]]
+                                $splice: [[index, 1]],
+                                [0]: {
+                                  payer: {$set: props.dividers[0].payer || divider.payer}
+                                }
                             }))
+
                             props.setColorsNames(update(props.colorsNames, {
                                 $splice: [[index, 1]],
                                 $push: [
-                                    [props.colorsNames[index]]
+                                    props.colorsNames[index]
                                 ]
                             }))
                         }}/>}
@@ -105,7 +118,7 @@ function DividersConfigurationSection(props) {
                     props.setDividers(update(props.dividers, {
                         $push: [{
                             name: '',
-                            color: [props.colorsNames[props.dividers.length]]
+                            color: props.colorsNames[props.dividers.length]
                         }]
                     }))
                 }}>

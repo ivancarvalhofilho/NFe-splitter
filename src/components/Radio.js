@@ -37,7 +37,7 @@ const RadioStyle = styled.div`
 `
 
 export const Radio = props => (
-	<RadioStyle color={props.color} size={20} onClick={props.onClick} active={props.active}>
+	<RadioStyle color={props.color} size={24} onClick={props.onClick} active={props.active}>
 		<span />
 	</RadioStyle>
 )

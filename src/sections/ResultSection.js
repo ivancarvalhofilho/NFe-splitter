@@ -4,7 +4,7 @@ import {Circle, RSPrefix} from "../screens/Main";
 import {Radio} from "../components/Radio";
 import BigRadio from "../components/Radio";
 
-const DividersCashinParent = styled.div`
+const ResultParent = styled.div`
   & > span {
     display: flex;
     justify-content: center;
@@ -18,7 +18,7 @@ const DividersCashinParent = styled.div`
     min-width: 25vw;
   }
 `
-const DividersCashin = styled.div`
+const Result = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -55,23 +55,25 @@ const DividersCashin = styled.div`
   }
 `
 
-function DividersCashinSection(props) {
-    return <DividersCashinParent>
-        <span>Quem pagou a conta?</span>
+function ResultSection(props) {
+    return <ResultParent>
+        <span>Resultado da divisão</span>
 
         <div>
-            {props.dividersWithName.map((divider, index) => <DividersCashin key={'DividersCashin'+index}>
+            {props.dividersWithName.map((divider, index) => <Result key={'Result'+index}>
                 <div>
                     <Circle small color={props.colorsHexa[divider.color]}/>
                     <span id={`cashin-span-${divider.color}`}>{divider.name || 'Sem nome'}</span>
                 </div>
-                <div>
-                    <Radio color={props.colorsHexa[divider.color]} onClick={() => props.updatePayer(index)} active={divider.payer}/>
-                </div>
-            </DividersCashin>)}
+                {divider.payer && (<div> Pagou a conta </div>)}
+                {!divider.payer && (<div style={{fontWeight: 600}}>R$ {divider.valueToPay && divider.valueToPay.toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                }) || '0'} </div>)}
+            </Result>)}
         </div>
 
-    </DividersCashinParent>
+    </ResultParent>
 }
 
-export default DividersCashinSection;
+export default ResultSection;

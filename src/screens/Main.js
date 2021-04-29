@@ -3,11 +3,12 @@ import SwitchButton from "../components/SwitchButton";
 import URLTypeSection from "../sections/URLTypeSection";
 import InstructionsSection from "../sections/InstructionsSection";
 import SubmitURLInputSection from "../sections/SubmitURLInputSection";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import update from 'immutability-helper';
 import DividersConfigurationSection from "../sections/DividersConfigurationSection";
 import FoodTableSection from "../sections/FoodTableSection";
 import DividersCashinSection from "../sections/DividersCashinSection";
+import ResultSection from "../sections/ResultSection";
 
 
 const MainStyle = styled.div`
@@ -93,10 +94,19 @@ const colorsHexa = {
 	red: '#E54B4B',
 	orange: '#F99F39',
 	green: '#3D7068',
-	purple: '#290052',
+	purple: '#62259e',
 }
 
 function Main() {
+	const [mock, setMock] = useState([
+		{dividers: [], nome: "FILE PEITO FGO SADIA 1kg PFFZP", qtd: "1.0000", unidade: "UN", valor: "R$ 12,99"},
+		{dividers: [], nome: "CERVEJA PETRA 350ML PURO MALTE LATA", qtd: "1.0000", unidade: "CX", valor: "R$ 31,08"},
+		{dividers: [], nome: "MORTADELA PERDIGAO kg OURO DEF", qtd: "0.7020", unidade: "KG", valor: "R$ 11,86"},
+		{dividers: [], nome: "BATATA PRINGLES 112GR WAVY PIMENTA", qtd: "1.0000", unidade: "UN", valor: "R$ 14,90"},
+		{dividers: [], nome: "BATATA PRINGLES 120GR QUEIJO", qtd: "1.0000", unidade: "UN", valor: "R$ 7,99"},
+		{dividers: [], nome: "V.CHIL GATO NEGRO 750 MLTTO SC MERL", qtd: "1.0000", unidade: "GF", valor: "R$ 39,90"}
+	])
+
 	const [colorsNames, setColorsNames] = useState([
 		'blue',
 		'red',
@@ -109,22 +119,17 @@ function Main() {
 			name: '',
 			placeholder: 'ivan',
 			color: colorsNames[0],
-			payer: false,
-			asd: {
-				asdd:1
-			}
+			payer: true,
+			valueToPay: 0,
 		},
 		{
 			name: '',
 			placeholder: 'nicolas',
 			color: colorsNames[1],
 			payer: false,
+			valueToPay: 0,
 		}
 	])
-
-
-
-	const dividersWithName = dividers.filter(divider => !!divider.name)
 
 	function updatePayer(index) {
 		const clearedPayers = update(dividers, {
@@ -142,13 +147,30 @@ function Main() {
 		}))
 	}
 
+	useEffect(() => {
+		let newDividers = dividers
+		dividers.forEach((div, index) => {
+			let totalToPay = 0
+			mock.filter((food) => food.dividers.includes(div.color)).forEach(food => {
+				let foodPrice = food.valor.replaceAll(/\./gm,'').replaceAll(/,/gm,'.').replaceAll('R$ ','')
+				totalToPay += Number(foodPrice) / food.dividers.length
+			})
+			newDividers = update(newDividers, {
+				[index]: {
+					valueToPay: {$set: totalToPay}
+				}
+			})
+		})
+		setDividers(newDividers)
+	},[mock])
+
 	return (
 		<MainStyle>
 			<Advertising>Advertising</Advertising>
 
-			<InstructionsSection/>
+			{/*<InstructionsSection/>*/}
 
-			<URLTypeSection/>
+			{/*<URLTypeSection/>*/}
 
 			<SubmitURLInputSection/>
 
@@ -158,19 +180,31 @@ function Main() {
 				colorsNames={colorsNames}
 				setColorsNames={setColorsNames}
 				colorsHexa={colorsHexa}
+				foods={mock}
+				updateFood={setMock}
 			/>
 
 			<FoodTableSection
 				dividers={dividers}
 				colorsHexa={colorsHexa}
+				foods={mock}
+				updateFood={setMock}
 			/>
 
-			{dividersWithName.length > 0 &&
+			{dividers.length > 1 &&
 			<DividersCashinSection
 				updatePayer={updatePayer}
-				dividersWithName={dividersWithName}
+				dividersWithName={dividers}
 				colorsHexa={colorsHexa}
 			/>}
+
+			{dividers.length > 1 &&
+			<ResultSection
+				updatePayer={updatePayer}
+				dividersWithName={dividers}
+				colorsHexa={colorsHexa}
+			/>}
+
 
 		</MainStyle>
 	);
