@@ -54,6 +54,7 @@ const Checkbox = styled.label`
   background: ${props => props.color};
   border: 4px solid ${props => props.color};
   cursor: pointer;
+  
   & label {
     display: block;
     height: 30px;
@@ -64,6 +65,7 @@ const Checkbox = styled.label`
     transition: 0.4s;
     cursor: pointer;
   }
+  
   & label:after {
     transform: scaleX(-1) rotate(135deg);
     transform-origin: left top;
@@ -77,6 +79,7 @@ const Checkbox = styled.label`
     top: 16px;
     width: 10px;
     border-color: ${props => props.color+"22"};
+    transition: 0.2s;
   }
   & label:hover:after {
     border-color: ${props => props.color};

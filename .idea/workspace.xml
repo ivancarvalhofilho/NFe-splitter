@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01cf89c4-603c-4367-9ed6-dea3649b894e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/sections/ResultSection.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/DevSection.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Radio.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Radio.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sections/DividersCashinSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/DividersCashinSection.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sections/DividersConfigurationSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/DividersConfigurationSection.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sections/FoodTableSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/FoodTableSection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sections/SubmitURLInputSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/SubmitURLInputSection.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +93,7 @@
       <workItem from="1617281529184" duration="609000" />
       <workItem from="1617635581965" duration="3970000" />
       <workItem from="1618227629624" duration="2083000" />
-      <workItem from="1619643774372" duration="11908000" />
+      <workItem from="1619643774372" duration="15252000" />
     </task>
     <servers />
   </component>
@@ -141,14 +140,14 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="167" y="127" width="1653" height="853" key="VCS.FileHistoryDialog/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1615222347298" />
-    <state x="603" y="167" width="770" height="780" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1619656132665">
+    <state x="603" y="167" width="770" height="780" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1619658540251">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="603" y="167" width="770" height="780" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619656132665" />
-    <state x="889" y="182" width="915" height="655" key="find.popup" timestamp="1619653925028">
+    <state x="603" y="167" width="770" height="780" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619658540251" />
+    <state x="889" y="182" width="915" height="655" key="find.popup" timestamp="1619658534794">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state x="889" y="182" width="915" height="655" key="find.popup/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619653925028" />
+    <state x="889" y="182" width="915" height="655" key="find.popup/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1619658534794" />
     <state x="657" y="252" key="run.anything.popup" timestamp="1619656131479">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
