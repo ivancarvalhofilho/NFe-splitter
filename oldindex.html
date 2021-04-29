@@ -408,10 +408,10 @@
 		tableJson.each(index => {
 			tableLines
 				.tr()
-				.td(tableJson[index].nome)
-				.td(tableJson[index].qtd, 'qtd-column')
-				.td(tableJson[index].unidade)
-				.td(tableJson[index].valor)
+				.td(tableJson[oldindex].nome)
+				.td(tableJson[oldindex].qtd, 'qtd-column')
+				.td(tableJson[oldindex].unidade)
+				.td(tableJson[oldindex].valor)
 				.td(null, 'checkbox-column')
 
 			dividers.forEach((divider, index) => 

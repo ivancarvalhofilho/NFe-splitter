@@ -18,12 +18,8 @@
       "sizes": "512x512"
     }
   ],
-  "files": {
-    "path": "test/index.html"
-  },
-  "main": "test/index.html",
-  "entry": "test/index.html",
-  "homepage": "test/index.html",
+  "start_url": "/supermercado",
+  "homepage": "/supermercado",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

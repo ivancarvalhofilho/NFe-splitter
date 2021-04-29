@@ -10,6 +10,7 @@ import FoodTableSection from "../sections/FoodTableSection";
 import DividersCashinSection from "../sections/DividersCashinSection";
 import ResultSection from "../sections/ResultSection";
 import DevSection from "../sections/DevSection";
+import AdComponent from "../components/adsense";
 
 
 const MainStyle = styled.div`
@@ -168,7 +169,9 @@ function Main() {
 
 	return (
 		<MainStyle>
-			<Advertising>Advertising</Advertising>
+			<Advertising>
+				<AdComponent/>
+			</Advertising>
 
 			{/*<InstructionsSection/>*/}
 
